@@ -4,6 +4,8 @@
     "description": "This API is responsible to manage users authentication, authorization and sessions",
     "main": "index.js",
     "scripts": {
+        "start": "node ./build/server.js",
+        "dev": "tsc && nodemon ./build/server.js -e ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
