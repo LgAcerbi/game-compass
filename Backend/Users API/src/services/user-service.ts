@@ -2,8 +2,6 @@ import { HttpError } from "../helpers/http-error";
 import UserDTO from "../dtos/user-dto";
 import UserModel from "../models/user-model";
 
-const users: Array<UserDTO> = [{ id: "test", name: "some name", email: "some@mail.com" }];
-
 class UserService {
     static async getUserById(id: string): Promise<UserDTO | null> {
         const foundUser = await UserModel.findUserById(id);
