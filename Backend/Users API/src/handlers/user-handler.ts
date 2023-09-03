@@ -15,7 +15,7 @@ UserHandler.post("/users", async (req, res) => {
     res.status(201).send(await UserService.createUser(req.body));
 });
 
-UserHandler.patch("/users/:id/data", async (req, res) => {
+UserHandler.patch("/users/:id/personal-data", async (req, res) => {
     res.status(200).send(await UserService.patchUserDataById(req.params.id, req.body));
 });
 

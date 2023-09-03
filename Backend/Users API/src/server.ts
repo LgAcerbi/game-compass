@@ -5,6 +5,11 @@ import { Logger } from "./helpers/logger";
 
 const PORT = parseInt(`${process.env.PORT || 80}`);
 
-import router from "./router";
+import Router from "./router";
+import MongoDB from "./databases/mongodb";
 
-router.listen(PORT, () => Logger.info(`Server is running at ${PORT}.`));
+Router.listen(PORT, async () => {
+    await MongoDB.connect();
+
+    Logger.info(`Server is running at ${PORT}.`);
+});
