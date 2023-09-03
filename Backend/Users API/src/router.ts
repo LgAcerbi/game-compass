@@ -4,13 +4,13 @@ import helmet from "helmet";
 import errorMiddleware from "./middlewares/error-middleware";
 import UserHandler from "./handlers/user-handler";
 
-const router = express();
+const Router = express();
 
-router.use(helmet());
-router.use(express.json());
+Router.use(helmet());
+Router.use(express.json());
 
-router.use(UserHandler);
+Router.use(UserHandler);
 
-router.use(errorMiddleware);
+Router.use(errorMiddleware);
 
-export default router;
+export default Router;
