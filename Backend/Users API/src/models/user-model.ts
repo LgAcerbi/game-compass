@@ -10,7 +10,13 @@ class UserModel {
     }
 
     static parseUserDocument(userDocument: Document): UserDTO {
-        return { id: userDocument._id, name: userDocument.name, email: userDocument.email };
+        return {
+            id: userDocument._id,
+            name: userDocument.name,
+            email: userDocument.email,
+            birthday: userDocument.birthday,
+            profilePictureUrl: userDocument.profilePictureUrl,
+        };
     }
 
     static async findUserById(id: string): Promise<UserDTO | null> {
