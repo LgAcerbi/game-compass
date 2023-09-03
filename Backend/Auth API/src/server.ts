@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config({ path: "./env/.env" });
 
-import { Logger } from "./helpers/logger";
+import Logger from "./helpers/logger";
 
 const PORT = parseInt(`${process.env.PORT || 80}`);
 
