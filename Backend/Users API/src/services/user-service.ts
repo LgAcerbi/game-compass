@@ -1,4 +1,4 @@
-import { HttpError } from "../helpers/http-error";
+import HttpError from "../helpers/http-error";
 import UserDTO from "../dtos/user-dto";
 import UserModel from "../models/user-model";
 
