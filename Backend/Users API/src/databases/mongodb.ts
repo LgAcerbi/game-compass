@@ -1,5 +1,5 @@
 import { MongoClient, Db } from "mongodb";
-import { Logger } from "../helpers/logger";
+import Logger from "../helpers/logger";
 
 const { MONGODB_URI, MONGODB_DATABASE } = process.env;
 
