@@ -5,6 +5,7 @@
     "main": "./build/server.js",
     "scripts": {
         "start": "node ./build/server.js",
+        "build": "tsc",
         "dev": "tsc && nodemon ./build/server.js -e ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -17,8 +18,7 @@
         "express-async-errors": "^3.1.1",
         "helmet": "^7.0.0",
         "log4js": "^6.9.1",
-        "mongodb": "^6.0.0",
-        "typescript": "^5.2.2"
+        "mongodb": "^6.0.0"
     },
     "devDependencies": {
         "@types/dotenv": "^8.2.0",
@@ -27,6 +27,7 @@
         "@types/log4js": "^2.3.5",
         "@types/mongodb": "^4.0.7",
         "@types/node": "^20.5.9",
-        "nodemon": "^3.0.1"
+        "nodemon": "^3.0.1",
+        "typescript": "^5.2.2"
     }
 }

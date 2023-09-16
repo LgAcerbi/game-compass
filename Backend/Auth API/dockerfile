@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /usr/lists-api
+WORKDIR /usr/auth-api
 
 COPY package.json tsconfig.json ./
 

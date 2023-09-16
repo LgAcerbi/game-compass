@@ -18,7 +18,31 @@ services:
         networks:
             - game-compass
         ports:
-            - "3000:80"
+            - "3001:80"
+        environment:
+            - PORT=80
+            - LOGGER_LEVEL=DEBUG
+            - MONGODB_URI=mongodb://game-compass_mongodb:27017
+            - MONGODB_DATABASE=game-compass
+    auth-api:
+        image: game-compass_auth-api:latest
+        hostname: game-compass_auth-api
+        networks:
+            - game-compass
+        ports:
+            - "3002:80"
+        environment:
+            - PORT=80
+            - LOGGER_LEVEL=DEBUG
+            - MONGODB_URI=mongodb://game-compass_mongodb:27017
+            - MONGODB_DATABASE=game-compass
+    lists-api:
+        image: game-compass_lists-api:latest
+        hostname: game-compass_lists-api
+        networks:
+            - game-compass
+        ports:
+            - "3003:80"
         environment:
             - PORT=80
             - LOGGER_LEVEL=DEBUG
