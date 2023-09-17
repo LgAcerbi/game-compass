@@ -54,6 +54,8 @@ class AuthService {
             throw new HttpError(400, "User already registered with provided email");
         }
 
+        const foundDefaultRoles = await RoleService.findDefaultRoles();
+
         const { id } = await UserService.createUser({
             name: registerData.name,
             birthday: registerData.birthday,
@@ -61,12 +63,11 @@ class AuthService {
 
         const hashedPassword = PasswordHelper.hashPassword(registerData.password);
 
-        // TO-DO Get default roles in database
         await AuthUserModel.createAuthUser({
             email: registerData.email,
             password: hashedPassword,
             userId: id,
-            roles: ["user"],
+            roles: foundDefaultRoles.map((role) => role.id),
         });
 
         const token = sign({ id }, String(JWT_TOKEN_SECRET), { expiresIn: Number(JWT_TOKEN_EXPIRES_IN) });

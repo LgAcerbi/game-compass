@@ -33,7 +33,19 @@ class RoleService {
         return foundRoles;
     }
 
-    static async createResource(roleData: RoleDTO): Promise<RoleDTO> {
+    static async findDefaultRoles(): Promise<Array<RoleDTO>> {
+        const foundRoles = await RoleModel.findDefaultRoles();
+
+        if (foundRoles.length === 0) {
+            throw new HttpError(404, "Default roles not found");
+        }
+
+        return foundRoles;
+    }
+
+    static async createRole(roleData: RoleDTO): Promise<RoleDTO> {
+        roleData.default = roleData.default ? roleData.default : false;
+
         const { id } = await RoleModel.createRole(roleData);
 
         return { ...roleData, id };

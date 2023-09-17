@@ -4,7 +4,7 @@ import RoleService from "../services/role-service";
 const RoleHandler = Router();
 
 RoleHandler.post("/roles", async (req, res, next) => {
-    res.status(201).send(await RoleService.createResource(req.body));
+    res.status(201).send(await RoleService.createRole(req.body));
     next();
 });
 
