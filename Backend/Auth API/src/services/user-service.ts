@@ -8,7 +8,7 @@ const { USERS_API_URL } = process.env;
 class UserService {
     static async createUser(user: Omit<UserDTO, "id">): Promise<Pick<UserDTO, "id">> {
         try {
-            const response = await axios.post(`${USERS_API_URL}/user`, user);
+            const response = await axios.post(`${USERS_API_URL}/users`, user);
 
             return response.data;
         } catch (error: any) {
