@@ -11,7 +11,7 @@ class ResourceModel {
 
     static parseResourceDocument(resourceDocument: Document): ResourceDTO {
         return {
-            id: resourceDocument._id,
+            id: resourceDocument._id.toString(),
             name: resourceDocument.name,
             method: resourceDocument.method,
             endpoint: resourceDocument.endpoint,
