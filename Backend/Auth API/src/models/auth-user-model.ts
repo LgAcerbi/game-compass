@@ -1,4 +1,4 @@
-import { ObjectId, Document } from "mongodb";
+import { Document } from "mongodb";
 import MongoDB from "../databases/mongodb";
 import AuthUserDTO from "../dtos/auth-user-dto";
 

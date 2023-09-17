@@ -1,5 +1,5 @@
-export default interface EvaluateDTO {
+import ResourceDTO from "./resource-dto";
+
+export default interface EvaluateDTO extends Omit<ResourceDTO, "name" | "id"> {
     token: string;
-    resource: string;
-    method: string;
 }
