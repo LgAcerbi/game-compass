@@ -11,7 +11,7 @@ class UserModel {
 
     static parseUserDocument(userDocument: Document): UserDTO {
         return {
-            id: userDocument._id,
+            id: userDocument._id.toString(),
             name: userDocument.name,
             birthday: userDocument.birthday,
             profilePictureUrl: userDocument.profilePictureUrl,
