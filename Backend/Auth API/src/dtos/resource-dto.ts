@@ -1,7 +1,7 @@
 export default interface ResourceDTO {
     id: string;
     name: string;
-    method: string;
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "HEAD" | "OPTIONS";
     endpoint: string;
-    application: string;
+    application: "USERS-API" | "AUTH-API" | "LISTS-API" | "GAMES-API";
 }
