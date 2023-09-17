@@ -13,7 +13,6 @@ class UserModel {
         return {
             id: userDocument._id,
             name: userDocument.name,
-            email: userDocument.email,
             birthday: userDocument.birthday,
             profilePictureUrl: userDocument.profilePictureUrl,
         };
@@ -31,6 +30,9 @@ class UserModel {
         return null;
     }
 
+    /**
+     * @deprecated
+     */
     static async findUserByEmail(email: string): Promise<UserDTO | null> {
         const client = await UserModel.getCollectionClient();
 

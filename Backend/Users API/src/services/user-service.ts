@@ -13,6 +13,9 @@ class UserService {
         return foundUser;
     }
 
+    /**
+     * @deprecated
+     */
     static async getUserByEmail(email: string): Promise<UserDTO | null> {
         const foundUser = await UserModel.findUserByEmail(email);
 
@@ -29,7 +32,7 @@ class UserService {
         return { ...userData, id };
     }
 
-    static async patchUserDataById(id: string, userData: Omit<UserDTO, "id" | "name">): Promise<UserDTO> {
+    static async patchUserDataById(id: string, userData: Omit<UserDTO, "id" | "name" | "email">): Promise<UserDTO> {
         const foundUser = await UserModel.findUserById(id);
 
         if (!foundUser) {

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import UserService from "../services/user-service";
+import { deprecate } from "util";
 
 const UserHandler = Router();
 
@@ -7,6 +8,9 @@ UserHandler.get("/users/:id", async (req, res) => {
     res.status(200).send(await UserService.getUserById(req.params.id));
 });
 
+/**
+ * @deprecated
+ */
 UserHandler.get("/users/email/:email", async (req, res) => {
     res.status(200).send(await UserService.getUserByEmail(req.params.email));
 });
