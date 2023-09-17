@@ -36,6 +36,7 @@ services:
             - LOGGER_LEVEL=DEBUG
             - MONGODB_URI=mongodb://game-compass_mongodb:27017
             - MONGODB_DATABASE=game-compass
+            - USERS_API_URL=http://game-compass_users-api/
     lists-api:
         image: game-compass_lists-api:latest
         hostname: game-compass_lists-api
