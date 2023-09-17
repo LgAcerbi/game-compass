@@ -19,13 +19,13 @@ class ResourceModel {
         };
     }
 
-    static async createResource(resource: Omit<ResourceDTO, "id">): Promise<{ id: string }> {
+    static async createResource(resourceData: Omit<ResourceDTO, "id">): Promise<{ id: string }> {
         const client = await ResourceModel.getCollectionClient();
 
         const currentDate = new Date().toISOString();
 
         const { insertedId } = await client.insertOne({
-            ...resource,
+            ...resourceData,
             createdAt: currentDate,
             updatedAt: currentDate,
             deletedAt: null,
