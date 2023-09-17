@@ -6,7 +6,7 @@ import AuthUserModel from "../models/auth-user-model";
 import UserService from "./user-service";
 import { sign } from "jsonwebtoken";
 
-const { TOKEN_SECRET, TOKEN_EXPIRES_IN } = process.env;
+const { TOKEN_SECRET, TOKEN_EXPIRES_IN = 86400 } = process.env;
 
 // TO-DO Get minimum age restrictions in database
 const minimumAgeRestrictionByCountry = new Map([
@@ -41,8 +41,13 @@ class AuthService {
             throw new HttpError(400, "Current user age is not allowed to register");
         }
 
+        const foundAuthUser = await AuthUserModel.findAuthUserByEmail(registerData.email);
+
+        if (foundAuthUser) {
+            throw new HttpError(400, "User already registered with provided email");
+        }
+
         const { id } = await UserService.createUser({
-            email: registerData.email,
             name: registerData.name,
             birthday: registerData.birthday,
         });
@@ -57,7 +62,7 @@ class AuthService {
             roles: ["user"],
         });
 
-        const token = sign({ id }, String(TOKEN_SECRET), { expiresIn: TOKEN_EXPIRES_IN });
+        const token = sign({ id }, String(TOKEN_SECRET), { expiresIn: Number(TOKEN_EXPIRES_IN) });
 
         return { token };
     }
