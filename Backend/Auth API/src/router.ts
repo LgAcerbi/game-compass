@@ -2,6 +2,7 @@ import "express-async-errors";
 import express from "express";
 import helmet from "helmet";
 import errorMiddleware from "./middlewares/error-middleware";
+import loggerMiddleware from "./middlewares/logger-middleware";
 
 import AuthHandler from "./handlers/auth-handler";
 import ResourceHandler from "./handlers/resource-handler";
@@ -19,5 +20,6 @@ Router.use(PermissionHandler);
 Router.use(RoleHandler);
 
 Router.use(errorMiddleware);
+Router.use(loggerMiddleware);
 
 export default Router;
