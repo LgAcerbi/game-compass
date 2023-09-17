@@ -1,0 +1,51 @@
+version: "3"
+
+networks:
+    game-compass:
+        external: true
+
+services:
+    mongodb: 
+        image: mongo:latest
+        hostname: game-compass_mongodb
+        networks:
+            - game-compass
+        ports:
+            - "27017:27017"
+    users-api:
+        image: game-compass_users-api:latest
+        hostname: game-compass_users-api
+        networks:
+            - game-compass
+        ports:
+            - "3001:80"
+        environment:
+            - PORT=80
+            - LOGGER_LEVEL=DEBUG
+            - MONGODB_URI=mongodb://game-compass_mongodb:27017
+            - MONGODB_DATABASE=game-compass
+    auth-api:
+        image: game-compass_auth-api:latest
+        hostname: game-compass_auth-api
+        networks:
+            - game-compass
+        ports:
+            - "3002:80"
+        environment:
+            - PORT=80
+            - LOGGER_LEVEL=DEBUG
+            - MONGODB_URI=mongodb://game-compass_mongodb:27017
+            - MONGODB_DATABASE=game-compass
+            - USERS_API_URL=http://game-compass_users-api/
+    lists-api:
+        image: game-compass_lists-api:latest
+        hostname: game-compass_lists-api
+        networks:
+            - game-compass
+        ports:
+            - "3003:80"
+        environment:
+            - PORT=80
+            - LOGGER_LEVEL=DEBUG
+            - MONGODB_URI=mongodb://game-compass_mongodb:27017
+            - MONGODB_DATABASE=game-compass

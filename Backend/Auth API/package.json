@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node ./build/server.js",
+        "build": "tsc",
         "dev": "tsc && nodemon ./build/server.js -e ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
