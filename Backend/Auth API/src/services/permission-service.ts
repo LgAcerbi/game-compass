@@ -3,6 +3,16 @@ import PermissionDTO from "../dtos/permission-dto";
 import HttpError from "../helpers/http-error";
 
 class PermissionService {
+    static async findAllPermissions(): Promise<Array<PermissionDTO>> {
+        const foundPermissions = await PermissionModel.findAllPermissions();
+
+        if (foundPermissions.length === 0) {
+            throw new HttpError(404, "Permissions not found");
+        }
+
+        return foundPermissions;
+    }
+
     static async findPermissionById(id: string): Promise<PermissionDTO> {
         const foundPermission = await PermissionModel.findPermissionById(id);
 
@@ -11,6 +21,16 @@ class PermissionService {
         }
 
         return foundPermission;
+    }
+
+    static async findPermissionsByIds(ids: Array<string>): Promise<Array<PermissionDTO>> {
+        const foundPermissions = await PermissionModel.findAllPermissions();
+
+        if (foundPermissions.length === 0) {
+            throw new HttpError(404, "Permissions not found");
+        }
+
+        return foundPermissions;
     }
 
     static async createPermission(permissionData: PermissionDTO): Promise<PermissionDTO> {

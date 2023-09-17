@@ -11,7 +11,7 @@ class PermissionModel {
 
     static parsePermissionDocument(permissionDocument: Document): PermissionDTO {
         return {
-            id: permissionDocument._id,
+            id: permissionDocument._id.toString(),
             name: permissionDocument.name,
             resources: permissionDocument.resources,
         };
@@ -32,6 +32,20 @@ class PermissionModel {
         return { id: insertedId.toString() };
     }
 
+    static async findAllPermissions(): Promise<Array<PermissionDTO> | []> {
+        const client = await PermissionModel.getCollectionClient();
+
+        const foundPermissionsCursor = client.find({ deletedAt: null });
+
+        const foundPermissions = [];
+
+        for await (const foundRole of foundPermissionsCursor) {
+            foundPermissions.push(PermissionModel.parsePermissionDocument(foundRole));
+        }
+
+        return foundPermissions;
+    }
+
     static async findPermissionById(id: string): Promise<PermissionDTO | null> {
         const client = await PermissionModel.getCollectionClient();
 
@@ -42,6 +56,22 @@ class PermissionModel {
         }
 
         return null;
+    }
+
+    static async findPermissionsByIds(ids: Array<string>): Promise<Array<PermissionDTO> | []> {
+        const client = await PermissionModel.getCollectionClient();
+
+        const parsedIds = ids.map((id) => new ObjectId(id));
+
+        const foundPermissionsCursor = client.find({ _id: { $in: parsedIds }, deletedAt: null });
+
+        const foundPermissions = [];
+
+        for await (const foundRole of foundPermissionsCursor) {
+            foundPermissions.push(PermissionModel.parsePermissionDocument(foundRole));
+        }
+
+        return foundPermissions;
     }
 
     static async softDeletePermissionById(id: string) {

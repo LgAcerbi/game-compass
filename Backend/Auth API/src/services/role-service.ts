@@ -3,6 +3,16 @@ import RoleModel from "../models/role-model";
 import HttpError from "../helpers/http-error";
 
 class RoleService {
+    static async findAllRoles(): Promise<Array<RoleDTO>> {
+        const foundRoles = await RoleModel.findAllRoles();
+
+        if (foundRoles.length === 0) {
+            throw new HttpError(404, "Roles not found");
+        }
+
+        return foundRoles;
+    }
+
     static async findRoleById(id: string): Promise<RoleDTO> {
         const foundRole = await RoleModel.findRoleById(id);
 
@@ -11,6 +21,16 @@ class RoleService {
         }
 
         return foundRole;
+    }
+
+    static async findRolesByIds(ids: Array<string>): Promise<Array<RoleDTO>> {
+        const foundRoles = await RoleModel.findRolesByIds(ids);
+
+        if (foundRoles.length === 0) {
+            throw new HttpError(404, "Roles not found");
+        }
+
+        return foundRoles;
     }
 
     static async createResource(roleData: RoleDTO): Promise<RoleDTO> {

@@ -11,7 +11,7 @@ class RoleModel {
 
     static parseRoleDocument(roleDocument: Document): RoleDTO {
         return {
-            id: roleDocument._id,
+            id: roleDocument._id.toString(),
             name: roleDocument.name,
             permissions: roleDocument.permissions,
         };
@@ -32,6 +32,20 @@ class RoleModel {
         return { id: insertedId.toString() };
     }
 
+    static async findAllRoles(): Promise<Array<RoleDTO> | []> {
+        const client = await RoleModel.getCollectionClient();
+
+        const foundRolesCursor = client.find({ deletedAt: null });
+
+        const foundRoles = [];
+
+        for await (const foundRole of foundRolesCursor) {
+            foundRoles.push(RoleModel.parseRoleDocument(foundRole));
+        }
+
+        return foundRoles;
+    }
+
     static async findRoleById(id: string): Promise<RoleDTO | null> {
         const client = await RoleModel.getCollectionClient();
 
@@ -42,6 +56,22 @@ class RoleModel {
         }
 
         return null;
+    }
+
+    static async findRolesByIds(ids: Array<string>): Promise<Array<RoleDTO> | []> {
+        const client = await RoleModel.getCollectionClient();
+
+        const parsedIds = ids.map((id) => new ObjectId(id));
+
+        const foundRolesCursor = client.find({ _id: { $in: parsedIds }, deletedAt: null });
+
+        const foundRoles = [];
+
+        for await (const foundRole of foundRolesCursor) {
+            foundRoles.push(RoleModel.parseRoleDocument(foundRole));
+        }
+
+        return foundRoles;
     }
 
     static async softDeleteRoleById(id: string) {
